@@ -1,0 +1,42 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="288dp"
+    android:height="288dp"
+    android:viewportWidth="288"
+    android:viewportHeight="288">
+    
+    <!-- Fundo Escuro Central -->
+    <path
+        android:fillColor="#020307"
+        android:pathData="M0,0h288v288h-288z"/>
+
+    <!-- Nave Arcade Centralizada e com Proporção Grande -->
+    <group
+        android:scaleX="3.2"
+        android:scaleY="3.2"
+        android:pivotX="45"
+        android:pivotY="45">
+        <!-- Corpo da Nave Ciano -->
+        <path
+            android:fillColor="#38bdf8"
+            android:pathData="M43,26h4v5h-4z M40,31h10v5h-10z M37,36h16v5h-16z M34,41h22v5h-22z M37,46h16v5h-16z M35,51h5v5h-5z M50,51h5v5h-5z M33,56h4v5h-4z M53,56h4v5h-4z"/>
+        <!-- Detalhes Branco da Cabine -->
+        <path
+            android:fillColor="#ffffff"
+            android:pathData="M43,31h4v10h-4z M38,38h4v5h-4z M48,38h4v5h-4z"/>
+        <!-- Propulsores Laranja / Amarelo -->
+        <path
+            android:fillColor="#f97316"
+            android:pathData="M35,61h4v8h-4z M51,61h4v8h-4z"/>
+        <path
+            android:fillColor="#fde047"
+            android:pathData="M36,63h2v4h-2z M52,63h2v4h-2z"/>
+    </group>
+
+    <!-- Estrelas Arcade de Fundo -->
+    <path
+        android:fillColor="#fde047"
+        android:pathData="M50,40h4v4h-4z M230,60h4v4h-4z M70,220h4v4h-4z M210,200h4v4h-4z"/>
+    <path
+        android:fillColor="#38bdf8"
+        android:pathData="M80,90h3v3h-3z M200,120h3v3h-3z M40,160h3v3h-3z M240,170h3v3h-3z M144,30h3v3h-3z"/>
+</vector>
