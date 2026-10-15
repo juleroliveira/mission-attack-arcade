@@ -11,3 +11,6 @@ captures/
 .kotlin/
 *.hprof
 *.apk
+*.aab
+*.keystore
+*.jks
