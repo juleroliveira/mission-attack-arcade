@@ -1,0 +1,54 @@
+name: Android Upload & Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      track:
+        description: 'Google Play Store Track'
+        required: true
+        default: 'internal'
+        type: choice
+        options:
+          - internal
+          - alpha
+          - beta
+          - production
+      version_code:
+        description: 'Version Code (leave empty to use run number)'
+        required: false
+        default: ''
+
+jobs:
+  release:
+    name: Build, Sign & Upload to Google Play
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Calculate Version Code
+        id: version
+        run: |
+          if [ -n "${{ github.event.inputs.version_code }}" ]; then
+            echo "code=${{ github.event.inputs.version_code }}" >> $GITHUB_OUTPUT
+          else
+            echo "code=${{ github.run_number }}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Upload to Google Play Store
+        uses: kolabs-dev/mobile-actions/android-upload@v1
+        with:
+          app-path: '.'
+          build-type: 'aab'
+          java-version: '17'
+          keystore: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          keystore-password: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          key-alias: ${{ secrets.ANDROID_KEY_ALIAS }}
+          key-password: ${{ secrets.ANDROID_KEY_PASSWORD }}
+          service-account-json: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON_BASE64 }}
+          package-name: 'com.arcade.missionattack'
+          version-code: ${{ steps.version.outputs.code }}
+          track: ${{ github.event.inputs.track || 'internal' }}

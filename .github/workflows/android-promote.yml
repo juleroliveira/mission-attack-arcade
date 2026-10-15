@@ -1,0 +1,33 @@
+name: Android Promote Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version_code:
+        description: 'Version Code of the build to promote'
+        required: true
+      target_track:
+        description: 'Target Google Play Track'
+        required: true
+        default: 'production'
+        type: choice
+        options:
+          - alpha
+          - beta
+          - production
+
+jobs:
+  promote:
+    name: Promote Build on Google Play
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Promote on Google Play Store
+        uses: kolabs-dev/mobile-actions/android-promote@v1
+        with:
+          service-account-json: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON_BASE64 }}
+          package-name: 'com.arcade.missionattack'
+          version-code: ${{ inputs.version_code }}
+          target-track: ${{ inputs.target_track }}
